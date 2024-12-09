@@ -1,14 +1,29 @@
-const dotenv = require("dotenv");
-dotenv.config();
+import express, { json, urlencoded } from "express";
+import cors from "cors";
+import { config } from "./src/config/index.js";
+import { assistantRouter } from "./src/routes/assistantRoute.js";
 
-export const config = {
-  env: process.env.NODE_ENV || 'dev',
-  port: process.env.PORT || 3000,
-  mongodbURL: process.env.MONGODB_URL,
-  frontendOrigin: process.env.FRONTEND_ORIGIN,
-  demoFrontendOrigin: process.env.DEMO_FRONTEND_ORIGIN,
-  openaiKey: process.env.OPENAI_API_KEY,
-  nodemailerUser: process.env.MAIL_USER,
-  nodemailerPassword: process.env.MAIL_PASS,
-  nodemailerSupportMail: process.env.MAIL_SUPPORT,
-};
+const app = express();
+const PORT = config.port || 3000;
+
+// const whitelist = [/^https:\/\/(.+\.)?nogadev\.com$/, /^http:\/\/localhost:5173$/,"http://napsix_chat.test"];
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (!origin || whitelist.some(pattern => pattern.test(origin))) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+    
+//     }}}
+
+app.use(cors());
+
+app.use(json());
+app.use(urlencoded({ extended: false }));
+
+app.use("/api", assistantRouter)
+
+
+app.listen(PORT, () => {
+  console.log(`Servidor Express escuchando en el puerto ${PORT}`);
+});
