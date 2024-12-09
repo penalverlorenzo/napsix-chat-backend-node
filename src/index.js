@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-import { config } from "./src/config/index.js";
-import { assistantRouter } from "./src/routes/assistantRoute.js";
+import { config } from "./config/index.js";
+import { assistantRouter } from "./routes/assistantRoute.js";
 
 const app = express();
 const PORT = config.port || 3000;
