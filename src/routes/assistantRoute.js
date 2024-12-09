@@ -23,9 +23,9 @@ assistantRouter.post('/create', async (req, res) => {
     const { information } = req.body;
     
     const created = await service.createAssistant(information);
+  
     console.log({created});
-    
-    res.json(created);
+    res.json({created});
   } catch (error) {
     console.log(error);
     res.status(500).send("Error creating your assistant");
@@ -57,7 +57,7 @@ assistantRouter.post("/edit", async (req, res) => {
     
       console.log({editedAssistant});
       
-      res.send("editedAssistant");
+      res.json(editedAssistant);
     } catch (error) {
       console.log({error});
       res.status(500).send("Error editing your assistant");

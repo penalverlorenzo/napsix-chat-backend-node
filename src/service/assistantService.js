@@ -16,12 +16,14 @@ export class AssistantService {
             model: "gpt-3.5-turbo",
             ...information});
           console.log(assistant);
+          return assistant
           
     }
     async editAssistant(id, modifications){
         try{
             const editedAssistant = await  openai.beta.assistants.update(id, modifications)
             console.log(editedAssistant);
+            return editedAssistant
         }catch(e){
             console.log(e);
         }
