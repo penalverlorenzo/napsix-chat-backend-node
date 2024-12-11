@@ -40,7 +40,7 @@ assistantRouter.post('/chat', async (req, res) => {
     const created = await service.useAssistant(assistantId, message, userId);
   
     console.log({created});
-    res.json({created});
+    res.json({response: created});
   } catch (error) {
     console.log(error);
     res.status(500).send("Error creating your assistant");
