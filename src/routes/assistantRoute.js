@@ -31,6 +31,21 @@ assistantRouter.post('/create', async (req, res) => {
     res.status(500).send("Error creating your assistant");
   }
 })
+assistantRouter.post('/chat', async (req, res) => { 
+    console.log("chat", req.body);
+  try {
+    
+    const { assistantId, message, userId } = req.body;
+    
+    const created = await service.useAssistant(assistantId, message, userId);
+  
+    console.log({created});
+    res.json({created});
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error creating your assistant");
+  }
+})
 
  assistantRouter.delete("/", async (req, res) => { 
     try {
