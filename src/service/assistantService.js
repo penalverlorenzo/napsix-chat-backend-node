@@ -48,22 +48,24 @@ export class AssistantService {
     }
 
     
-    async useAssistant(id,userMessage,userId) {
+    async useAssistant({id,userMessage,userId, threadID}) {
         console.log({id,userMessage,userId});
-        const thread = await openai.beta.threads.create();
-        if (!this.threads[userId]) {
-            this.threads[userId] = thread
+        if (!threadID) {
+            const thread = await openai.beta.threads.create();
+            if (!this.threads[userId]) {
+                this.threads[userId] = thread
+            }
         }
         
         const message = await openai.beta.threads.messages.create(
-            this.threads[userId].id || thread.id,
+            threadID || this.threads[userId].id || thread.id,
             {
                 role: "user",
                 content: userMessage
             }
         );
         let run = await openai.beta.threads.runs.createAndPoll(
-            this.threads[userId].id || thread.id,
+            threadID || this.threads[userId].id || thread.id,
             {
                 assistant_id: id
             }
@@ -84,7 +86,7 @@ export class AssistantService {
             console.log(run.status);
             return run.status
           }
-          return [responses, this.threads[userId]]
+          return responses
     }
 
 }
