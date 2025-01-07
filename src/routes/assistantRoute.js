@@ -37,7 +37,7 @@ assistantRouter.post('/chat', async (req, res) => {
     
     const { assistantId, message, userId, threadID} = req.body;
     
-    const created = await service.useAssistant({assistantId, message, userId, threadID});
+    const created = await service.useAssistant(assistantId, message, userId, threadID);
   
     console.log({created});
     res.json({response: created});

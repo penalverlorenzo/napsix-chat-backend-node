@@ -48,7 +48,7 @@ export class AssistantService {
     }
 
     
-    async useAssistant({id,userMessage,userId, threadID}) {
+    async useAssistant(id,userMessage,userId, threadID) {
         console.log({id,userMessage,userId});
         if (!threadID) {
             const thread = await openai.beta.threads.create();
