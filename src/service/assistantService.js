@@ -84,7 +84,7 @@ export class AssistantService {
             console.log(run.status);
             return run.status
           }
-          return responses
+          return [responses, this.threads[userId]]
     }
 
 }
